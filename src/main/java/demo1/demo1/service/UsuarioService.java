@@ -16,31 +16,23 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
 
-    // public UsuarioService(UsuarioRepository usuarioRepository) {
-    //     this.usuarioRepository = usuarioRepository;
-    // }
+
     public UsuarioService(
         UsuarioRepository usuarioRepository,
-        PasswordEncoder passwordEncoder // Añadir como parámetro
+        PasswordEncoder passwordEncoder 
     ) {
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    // @Transactional
-    // public Usuario crearUsuario(Usuario usuario) {
-    //     return usuarioRepository.save(usuario);
-    // }
+
     @Transactional
     public Usuario crearUsuario(Usuario usuario) {
-        // Encriptar la contraseña antes de guardar
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return usuarioRepository.save(usuario);
     }
 
-    // public Usuario buscarPorEmail(String email) {
-    //     return usuarioRepository.findByEmail(email);
-    // }
+
     public Usuario buscarPorEmail(String email) {
         Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(email);
         return usuarioOptional.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + email));
@@ -52,11 +44,9 @@ public class UsuarioService {
 
     @Transactional
     public Usuario actualizarUsuario(Long id, Usuario usuarioActualizado) {
-        // Buscar el usuario existente
         Usuario usuarioExistente = usuarioRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + id));
 
-        // Actualizar campos permitidos
         if (usuarioActualizado.getNombre() != null) {
             usuarioExistente.setNombre(usuarioActualizado.getNombre());
         }

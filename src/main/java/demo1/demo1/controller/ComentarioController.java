@@ -19,13 +19,11 @@ public class ComentarioController {
         this.comentarioService = comentarioService;
     }
 
-    // Crear comentario
     @PostMapping("/crear")
     public Comentario crearComentario(@RequestBody Comentario comentario) {
         return comentarioService.crearComentario(comentario);
     }
 
-    // Listar comentarios por tema
     @GetMapping("/tema/{temaId}")
     public List<Comentario> listarPorTema(@PathVariable Long temaId) {
         return comentarioService.listarPorTema(temaId);
@@ -36,12 +34,6 @@ public class ComentarioController {
         return comentarioService.listarTodos();
     }
 
-    // @PreAuthorize("hasRole('ADMIN')")
-    // @DeleteMapping("/eliminar/{id}")
-    // public void eliminarComentario(@PathVariable Long id) {
-    //     comentarioService.eliminarComentario(id);
-    // }
-    // Eliminar comentario (solo ADMIN)
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> eliminarComentario(@PathVariable Long id) {

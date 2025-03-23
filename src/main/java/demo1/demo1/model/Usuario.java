@@ -17,13 +17,11 @@ import jakarta.persistence.Table;
 @Setter
 public class Usuario {
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // private Long id;
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuarios_seq")
     @SequenceGenerator(
         name = "usuarios_seq",
-        sequenceName = "usuarios_seq", // Nombre de la secuencia en Oracle
-        allocationSize = 1 // Debe coincidir con INCREMENT BY
+        sequenceName = "usuarios_seq", 
+        allocationSize = 1 
     )
     private Long id;
 
@@ -37,7 +35,5 @@ public class Usuario {
     private String password;
 
     @Column(nullable = false, length = 10)
-    private String rol; // 'USER' o 'ADMIN'
-
-    // Getters y Setters (genera con Lombok o manualmente)
+    private String rol; 
 }

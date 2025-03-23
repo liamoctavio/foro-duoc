@@ -30,13 +30,11 @@ public class TemaService {
 
 
     public Tema crearTema(TemaDTO temaDTO) {
-        // Busca el usuario y la categoría
         Usuario usuario = usuarioRepository.findById(temaDTO.getUsuarioId())
             .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         Categoria categoria = categoriaRepository.findById(temaDTO.getCategoriaId())
             .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
 
-        // Crea el tema
         Tema tema = new Tema();
         tema.setTitulo(temaDTO.getTitulo());
         tema.setContenido(temaDTO.getContenido());
@@ -47,7 +45,6 @@ public class TemaService {
     }
 
     public List<Tema> listarPorCategoria(Long categoriaId) {
-        // implementation of the method
-        return temaRepository.findByCategoriaId(categoriaId); // replace with actual implementation
+        return temaRepository.findByCategoriaId(categoriaId); 
     }
 }

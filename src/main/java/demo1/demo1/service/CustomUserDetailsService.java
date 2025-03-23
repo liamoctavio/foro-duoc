@@ -27,7 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return User.builder()
             .username(usuario.getEmail())
             .password(usuario.getPassword())
-            .roles(usuario.getRol()) // Asegúrate de que el rol tenga el prefijo "ROLE_"
+            .roles(usuario.getRol()) 
             .build();
     }
 }

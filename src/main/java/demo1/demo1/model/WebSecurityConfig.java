@@ -41,62 +41,10 @@ public class WebSecurityConfig {
     }
 
 
-
-    // @Bean
-    // public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    //     http
-    //         .csrf().disable()
-    //         .authorizeHttpRequests(auth -> auth
-    //             .requestMatchers("/api/comentarios/**").hasRole("ADMIN") // Solo ADMIN accede a endpoints de comentarios
-    //             .anyRequest().permitAll()
-    //         )
-    //         .httpBasic();
-    //     return http.build();
-    // }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new TextPasswordEncoder(); // Usa el encoder personalizado
+        return new TextPasswordEncoder(); 
     }
-
-    // @Bean
-    // public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    //     http
-    //         .csrf(csrf -> csrf.disable()) // Desactivamos CSRF porque estás usando solo backend y Postman
-    //         .authorizeHttpRequests(authorize -> authorize
-    //             .requestMatchers("/", "/home").permitAll()
-    //             .anyRequest().authenticated()
-    //         )
-    //         .httpBasic()
-    //         .and() // Esto habilita autenticación básica (perfecta para Postman)
-    //         .logout(logout -> logout.permitAll());
-    
-    //     return http.build();
-    // }
-
-
-    // @Bean
-    // public UserDetailsService userDetailsService() {
-    //     UserDetails user = User.builder()
-    //         .username("user")
-    //         .password(passwordEncoder().encode("password"))
-    //         .roles("USER")
-    //         .build();
-
-    //     UserDetails admin = User.builder()
-    //     .username("admin")
-    //     .password(passwordEncoder().encode("adminpassword"))
-    //     .roles("ADMIN")
-    //     .build();
-
-    //     return new InMemoryUserDetailsManager(user, admin);
-    // }
-
-    // @Bean
-    // public PasswordEncoder passwordEncoder() {
-    //     return new BCryptPasswordEncoder();
-    // }
-
 
    
 }

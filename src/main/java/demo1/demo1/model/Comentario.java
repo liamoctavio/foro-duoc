@@ -27,7 +27,6 @@ public class Comentario {
     @JoinColumn(name = "tema_id", nullable = false)
     private Tema tema;
 
-    // Getters y Setters (usa Lombok @Data si prefieres)
     public Long getId() {
         return id;
     }

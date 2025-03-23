@@ -7,11 +7,11 @@ public class TextPasswordEncoder implements PasswordEncoder {
 
     @Override
     public String encode(CharSequence rawPassword) {
-        return rawPassword.toString(); // Devuelve la contraseña sin encriptar
+        return rawPassword.toString(); 
     }
 
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
-        return rawPassword.toString().equals(encodedPassword); // Compara texto plano
+        return rawPassword.toString().equals(encodedPassword); 
     }
 }

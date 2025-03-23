@@ -20,15 +20,14 @@ import java.util.Date;
 @Table(name = "temas")
 public class Tema {
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // private Long id;
+
     @GeneratedValue(
         strategy = GenerationType.SEQUENCE,
-        generator = "temas_seq" // Nombre del generador
+        generator = "temas_seq" 
     )
     @SequenceGenerator(
-        name = "temas_seq", // Debe coincidir con el generator
-        sequenceName = "temas_seq", // Nombre de la secuencia en Oracle
+        name = "temas_seq", 
+        sequenceName = "temas_seq", 
         allocationSize = 1
     )
     private Long id;
@@ -36,7 +35,7 @@ public class Tema {
     @Column(nullable = false, length = 200)
     private String titulo;
 
-    @Lob // Para contenido largo (CLOB)
+    @Lob 
     @Column(nullable = false)
     private String contenido;
 

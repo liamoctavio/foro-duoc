@@ -50,10 +50,7 @@ public class ComentarioService {
         return comentarioRepository.findAll();
     }
 
-    // @Transactional
-    // public void eliminarComentario(Long id) {
-    //     comentarioRepository.deleteById(id);
-    // }
+
     @Transactional
     public void eliminarComentario(Long id) {
         Comentario comentario = comentarioRepository.findById(id)
