@@ -5,6 +5,7 @@ import demo1.demo1.service.UsuarioService;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,5 +30,14 @@ public class UsuarioController {
     @GetMapping("/buscar")
     public Usuario buscarPorEmail(@RequestParam String email) {
         return usuarioService.buscarPorEmail(email);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> actualizarUsuario(
+        @PathVariable Long id,
+        @RequestBody Usuario usuarioActualizado
+    ) {
+        Usuario usuario = usuarioService.actualizarUsuario(id, usuarioActualizado);
+        return ResponseEntity.ok(usuario);
     }
 }

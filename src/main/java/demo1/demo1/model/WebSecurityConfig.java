@@ -3,6 +3,7 @@ package demo1.demo1.model;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -30,10 +31,11 @@ public class WebSecurityConfig {
         http
             .csrf().disable()
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/comentarios/**").hasRole("ADMIN") // Requiere ROLE_ADMIN
+                .requestMatchers("/api/comentarios/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/usuarios/**").hasRole("ADMIN") 
                 .anyRequest().permitAll()
             )
-            .userDetailsService(userDetailsService) // Usar el servicio personalizado
+            .userDetailsService(userDetailsService) 
             .httpBasic();
         return http.build();
     }
@@ -94,4 +96,7 @@ public class WebSecurityConfig {
     // public PasswordEncoder passwordEncoder() {
     //     return new BCryptPasswordEncoder();
     // }
+
+
+   
 }

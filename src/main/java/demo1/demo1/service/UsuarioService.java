@@ -50,5 +50,31 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
+    @Transactional
+    public Usuario actualizarUsuario(Long id, Usuario usuarioActualizado) {
+        // Buscar el usuario existente
+        Usuario usuarioExistente = usuarioRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + id));
+
+        // Actualizar campos permitidos
+        if (usuarioActualizado.getNombre() != null) {
+            usuarioExistente.setNombre(usuarioActualizado.getNombre());
+        }
+
+        if (usuarioActualizado.getEmail() != null) {
+            usuarioExistente.setEmail(usuarioActualizado.getEmail());
+        }
+
+        if (usuarioActualizado.getPassword() != null) {
+            usuarioExistente.setPassword(passwordEncoder.encode(usuarioActualizado.getPassword()));
+        }
+
+        if (usuarioActualizado.getRol() != null) {
+            usuarioExistente.setRol(usuarioActualizado.getRol());
+        }
+
+        return usuarioRepository.save(usuarioExistente);
+    }
+
 
 }
