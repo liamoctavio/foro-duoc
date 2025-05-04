@@ -6,6 +6,7 @@ import demo1.demo1.model.Tema;
 import demo1.demo1.model.Usuario;
 import demo1.demo1.repository.TemaRepository;
 import demo1.demo1.repository.UsuarioRepository;
+import org.springframework.transaction.annotation.Transactional;
 import demo1.demo1.repository.CategoriaRepository;
 
 import org.springframework.stereotype.Service;
@@ -20,11 +21,11 @@ public class TemaService {
     // Constructor actualizado
     public TemaService(
         TemaRepository temaRepository,
-        UsuarioRepository usuarioRepository, // <-- Incluir este parámetro
+        UsuarioRepository usuarioRepository, 
         CategoriaRepository categoriaRepository
     ) {
         this.temaRepository = temaRepository;
-        this.usuarioRepository = usuarioRepository; // <-- Inicializar
+        this.usuarioRepository = usuarioRepository; 
         this.categoriaRepository = categoriaRepository;
     }
 
@@ -46,5 +47,17 @@ public class TemaService {
 
     public List<Tema> listarPorCategoria(Long categoriaId) {
         return temaRepository.findByCategoriaId(categoriaId); 
+    }
+
+    @Transactional
+    public void eliminarTema(Long id) {
+        Tema tema = temaRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Tema no encontrado con id: " + id));
+        temaRepository.delete(tema);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Tema> listarTodos() {
+        return temaRepository.findAll();
     }
 }

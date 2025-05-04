@@ -1,5 +1,6 @@
 package demo1.demo1.service;
 
+import demo1.demo1.dto.UsuarioUpdateDTO;
 import demo1.demo1.model.Usuario;
 import demo1.demo1.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -65,6 +66,39 @@ public class UsuarioService {
 
         return usuarioRepository.save(usuarioExistente);
     }
+
+    // public Usuario actualizarPorEmail(String email, Usuario usuarioActualizado) {
+    //     Usuario usuarioExistente = usuarioRepository.findByEmail(email)
+    //         .orElseThrow(() -> new RuntimeException("Usuario no encontrado con email: " + email));
+    
+    //     if (usuarioActualizado.getNombre() != null) {
+    //         usuarioExistente.setNombre(usuarioActualizado.getNombre());
+    //     }
+    
+    //     if (usuarioActualizado.getPassword() != null) {
+    //         usuarioExistente.setPassword(passwordEncoder.encode(usuarioActualizado.getPassword()));
+    //     }
+    
+    //     return usuarioRepository.save(usuarioExistente);
+    // }
+
+    @Transactional
+    public Usuario actualizarPorEmail(String email, UsuarioUpdateDTO dto) {
+      Usuario usuario = usuarioRepository.findByEmail(email)
+          .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+  
+      if (dto.getNombre() != null && !dto.getNombre().isBlank()) {
+        usuario.setNombre(dto.getNombre());
+      }
+      if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
+        usuario.setPassword(passwordEncoder.encode(dto.getPassword()));
+      }
+  
+      return usuarioRepository.save(usuario);
+    }
+    
+
+    
 
 
 }

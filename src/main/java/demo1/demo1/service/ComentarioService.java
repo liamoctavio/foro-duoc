@@ -26,19 +26,36 @@ public class ComentarioService {
         this.usuarioRepository = usuarioRepository;
         this.temaRepository = temaRepository;
     }
+    // Este es el antiguo.
+    // @Transactional
+    // public Comentario crearComentario(Comentario comentario) {
+    //     Usuario usuario = usuarioRepository.findById(comentario.getUsuario().getId())
+    //         .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    //     Tema tema = temaRepository.findById(comentario.getTema().getId())
+    //         .orElseThrow(() -> new RuntimeException("Tema no encontrado"));
+
+    //     comentario.setUsuario(usuario);
+    //     comentario.setTema(tema);
+
+    //     return comentarioRepository.save(comentario);
+    // }
 
     @Transactional
-    public Comentario crearComentario(Comentario comentario) {
-        Usuario usuario = usuarioRepository.findById(comentario.getUsuario().getId())
+    public Comentario crearComentarioDesdeFrontend(Long temaId, String email, String contenido) {
+        Usuario usuario = usuarioRepository.findByEmail(email)
             .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        Tema tema = temaRepository.findById(comentario.getTema().getId())
+        
+        Tema tema = temaRepository.findById(temaId)
             .orElseThrow(() -> new RuntimeException("Tema no encontrado"));
 
+        Comentario comentario = new Comentario();
+        comentario.setContenido(contenido);
         comentario.setUsuario(usuario);
         comentario.setTema(tema);
 
         return comentarioRepository.save(comentario);
     }
+
 
     @Transactional(readOnly = true)
     public List<Comentario> listarPorTema(Long temaId) {
