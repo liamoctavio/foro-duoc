@@ -4,7 +4,7 @@ Este proyecto corresponde al backend del sistema de foros desarrollado en Spring
 
 ## 🛠️ Tecnologías utilizadas
 
-- Java 17
+- Java 21
 - Spring Boot
 - Maven Wrapper
 - Oracle Cloud (Base de datos)
