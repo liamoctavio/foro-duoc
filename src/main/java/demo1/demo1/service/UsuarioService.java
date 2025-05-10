@@ -67,21 +67,6 @@ public class UsuarioService {
         return usuarioRepository.save(usuarioExistente);
     }
 
-    // public Usuario actualizarPorEmail(String email, Usuario usuarioActualizado) {
-    //     Usuario usuarioExistente = usuarioRepository.findByEmail(email)
-    //         .orElseThrow(() -> new RuntimeException("Usuario no encontrado con email: " + email));
-    
-    //     if (usuarioActualizado.getNombre() != null) {
-    //         usuarioExistente.setNombre(usuarioActualizado.getNombre());
-    //     }
-    
-    //     if (usuarioActualizado.getPassword() != null) {
-    //         usuarioExistente.setPassword(passwordEncoder.encode(usuarioActualizado.getPassword()));
-    //     }
-    
-    //     return usuarioRepository.save(usuarioExistente);
-    // }
-
     @Transactional
     public Usuario actualizarPorEmail(String email, UsuarioUpdateDTO dto) {
       Usuario usuario = usuarioRepository.findByEmail(email)

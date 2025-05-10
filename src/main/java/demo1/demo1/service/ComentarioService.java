@@ -26,19 +26,6 @@ public class ComentarioService {
         this.usuarioRepository = usuarioRepository;
         this.temaRepository = temaRepository;
     }
-    // Este es el antiguo.
-    // @Transactional
-    // public Comentario crearComentario(Comentario comentario) {
-    //     Usuario usuario = usuarioRepository.findById(comentario.getUsuario().getId())
-    //         .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-    //     Tema tema = temaRepository.findById(comentario.getTema().getId())
-    //         .orElseThrow(() -> new RuntimeException("Tema no encontrado"));
-
-    //     comentario.setUsuario(usuario);
-    //     comentario.setTema(tema);
-
-    //     return comentarioRepository.save(comentario);
-    // }
 
     @Transactional
     public Comentario crearComentarioDesdeFrontend(Long temaId, String email, String contenido) {

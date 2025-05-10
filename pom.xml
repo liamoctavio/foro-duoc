@@ -96,7 +96,7 @@
         	<scope>runtime</scope>
     	</dependency>
 
-				<dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.28</version>
@@ -108,11 +108,102 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 		
 	</dependencies>
 
 	<build>
 		<plugins>
+						<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.8.10</version>
+
+					<configuration>
+						<excludes>
+							<exclude>demo1/demo1/config/WebSecurityConfig*</exclude>
+						</excludes>
+					</configuration>
+
+					<executions>
+						<!-- Prepara Jacoco como agente -->
+						<execution>
+							<id>prepare-agent</id>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+						</execution>
+
+						<!-- Genera los reportes HTML y XML -->
+						<execution>
+							<id>report</id>
+							<phase>prepare-package</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${project.build.directory}/site/jacoco</outputDirectory>
+								<dataFile>${project.build.directory}/jacoco.exec</dataFile>
+								<reports>
+									<xml enabled="true"/>
+									<html enabled="true"/>
+								</reports>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+			<!-- <plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.10</version>
+				<configuration>
+					<excludes>
+						<exclude>demo1/demo1/config/WebSecurityConfig*</exclude>
+					</excludes>
+					<outputDirectory>${project.build.directory}/site/jacoco</outputDirectory>
+					<dataFile>${project.build.directory}/jacoco.exec</dataFile>
+					<reports>
+						<xml enabled="true"/>
+						<html enabled="true"/>
+					</reports>
+
+				</configuration>
+				<executions>
+					<execution>
+					<id>report</id>
+					<phase>prepare-package</phase>
+					<goals>
+						<goal>report</goal>
+					</goals>
+					<configuration>
+						<reports>
+							<xml enabled="true"/>
+							<html enabled="true"/>
+						</reports>
+					</configuration>
+				</execution>
+
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

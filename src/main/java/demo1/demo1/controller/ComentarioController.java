@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -21,18 +23,26 @@ public class ComentarioController {
         this.comentarioService = comentarioService;
     }
 
-    // @PostMapping("/crear")
-    // public Comentario crearComentario(@RequestBody Comentario comentario) {
-    //     return comentarioService.crearComentario(comentario);
+    // @PostMapping("/tema/{temaId}")
+    // public ResponseEntity<Comentario> crearComentario(
+    //         @PathVariable Long temaId,
+    //         @RequestBody Map<String, String> cuerpo,
+    //         Authentication auth) {
+
+    //     String contenido = cuerpo.get("contenido");
+    //     String email = auth.getName(); 
+
+    //     Comentario nuevoComentario = comentarioService.crearComentarioDesdeFrontend(temaId, email, contenido);
+    //     return ResponseEntity.ok(nuevoComentario);
     // }
     @PostMapping("/tema/{temaId}")
     public ResponseEntity<Comentario> crearComentario(
             @PathVariable Long temaId,
             @RequestBody Map<String, String> cuerpo,
-            Authentication auth) {
+            Principal principal) {
 
         String contenido = cuerpo.get("contenido");
-        String email = auth.getName(); 
+        String email = principal.getName(); // <-- esto sí funciona bien con @WithMockUser
 
         Comentario nuevoComentario = comentarioService.crearComentarioDesdeFrontend(temaId, email, contenido);
         return ResponseEntity.ok(nuevoComentario);
